@@ -1,11 +1,16 @@
 #include "loop.h"
 
 duk_ret_t duv_run(duk_context *ctx) {
-  int ret = uv_run(duv_loop(ctx), UV_RUN_DEFAULT);
+  int type = UV_RUN_DEFAULT;
+  if (duk_is_number(ctx, 0)){
+    type = duk_get_int(ctx, 0);
+  }
+  int ret = uv_run(duv_loop(ctx), type);
   if (ret < 0) {
     duv_error(ctx, ret);
   }
-  return 0;
+  duk_push_int(ctx, ret);
+  return 1;
 }
 
 static void duv_walk_cb(uv_handle_t *handle, void* c) {

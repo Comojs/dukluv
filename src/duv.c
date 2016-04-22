@@ -16,7 +16,7 @@
 
 static const duk_function_list_entry duv_funcs[] = {
   // loop.c
-  {"run", duv_run, 0},
+  {"run", duv_run, 1},
   {"walk", duv_walk, 1},
 
   // req.c
